@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="39366"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-06-27 01:42:20 "/>
+        <attribute name="created" value="MzkzNjY7REVTS1RPUC0yRVNDT1BLOzIwMjMtMDYtMjc7IjEwOjA0OjU4ICI7MjU0OA=="/>
+        <attribute name="edited" value="MzkzNjY7REVTS1RPUC0yRVNDT1BLOzIwMjMtMDYtMjc7IjAxOjQyOjIwICI7NDsyNjUw"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <comment text="L'Utente inserisce da Seriale:&#13;&#10;a) Data e l'ora corrente.&#13;&#10;b) Fino a 16 orari all'interno di ogni giornata per l'avvio di un task di controllo ed eventuale irrigazione, specificandone la durata.&#13;&#10;c) I livelli massimi e minimi di umidit&#224; desiderati.&#13;&#10;d) Parametri correttivi sulla durata di irrigazione in base alla temperatura e all'umidit&#224; ambiente."/>
+            <output expression="DatiDaSeriale" newline="True"/>
+            <comment text="Finch&#232; non spengo Arduino"/>
+            <while expression="!off">
+                <comment text="Il sistema si pone in stato di PowerDown"/>
+                <while expression="PowerDown">
+                    <comment text="Il sistema pu&#242; essere svegliato dalla premuta di un pulsante o da un orario di avvio di ciclo di controllo."/>
+                    <if expression="ButtonPressed">
+                        <then>
+                            <call expression="CicloDiControllo&#13;&#10;"/>
+                        </then>
+                        <else>
+                            <if expression="&quot;InterruptOrariodiControllo&quot;">
+                                <then>
+                                    <call expression="CicloDiControllo&#13;&#10;"/>
+                                </then>
+                                <else/>
+                            </if>
+                        </else>
+                    </if>
+                    <while expression="IrrigazioneNecessaria">
+                        <comment text="Se l'irrigazione &#232; necessaria si attiva il Relay per comando elettrovalvola irrigazione.&#13;&#10;&#13;&#10;"/>
+                        <call expression="Irrigazione"/>
+                    </while>
+                </while>
+            </while>
+        </body>
+    </function>
+</flowgorithm>
