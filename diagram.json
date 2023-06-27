@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -173.4,
+      "left": 164.6,
+      "attrs": { "temperature": "-29", "humidity": "18.5" }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pot1",
+      "top": 44.02,
+      "left": 47.03,
+      "attrs": { "travelLength": "13" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": -29.43, "left": 177.86, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -85.74,
+      "left": -32.52,
+      "attrs": { "color": "black" }
+    },
+    { "type": "wokwi-arduino-nano", "id": "nano1", "top": -30.7, "left": -21.67, "attrs": {} }
+  ],
+  "connections": [
+    [ "pot1:GND", "nano1:GND.1", "black", [ "v-18.27", "h-66.94" ] ],
+    [ "pot1:VCC", "nano1:5V", "red", [ "h-0.51", "v-35.91", "h56.11" ] ],
+    [ "pot1:SIG", "nano1:A0", "orange", [ "h0" ] ],
+    [ "relay1:GND", "nano1:GND.2", "black", [ "h-14.5", "v-40.11", "h-56.43" ] ],
+    [ "relay1:IN", "nano1:2", "yellow", [ "h-19.9", "v-45.3", "h-59.43" ] ],
+    [ "dht1:VCC", "nano1:5V", "red", [ "v39.1", "h-26.94", "v63.57", "h-49.03" ] ],
+    [ "relay1:VCC", "nano1:5V", "red", [ "h-8.5", "v59.95", "h-63.04" ] ],
+    [ "dht1:GND", "nano1:GND.2", "black", [ "v18.02", "h-109.07" ] ],
+    [ "dht1:SDA", "nano1:3", "blue", [ "v11.42", "h-110.18" ] ],
+    [ "btn1:2.r", "nano1:GND.2", "black", [ "h69.17", "v27.84" ] ],
+    [ "btn1:1.r", "nano1:6", "purple", [ "v0.04", "h21.15" ] ]
+  ],
+  "dependencies": {}
+}
