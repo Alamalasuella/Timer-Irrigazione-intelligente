@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="39366"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-07-01 01:35:28 "/>
+        <attribute name="created" value="MzkzNjY7REVTS1RPUC0yRVNDT1BLOzIwMjMtMDYtMjc7IjEwOjA0OjU4ICI7MjU0OA=="/>
+        <attribute name="edited" value="MzkzNjY7REVTS1RPUC0yRVNDT1BLOzIwMjMtMDctMDE7IjAxOjM1OjI4ICI7MTE7MjY5OQ=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <comment text="L'Utente inserisce da Seriale:&#13;&#10;a) Data e l'ora corrente.&#13;&#10;b) Fino a 16 orari all'interno di ogni giornata per l'avvio di un task di controllo ed eventuale irrigazione, specificandone la durata.&#13;&#10;c) I livelli massimi e minimi di umidit&#224; desiderati.&#13;&#10;d) Parametri correttivi sulla durata di irrigazione in base alla temperatura e all'umidit&#224; ambiente."/>
+            <output expression="DatiDaSeriale" newline="True"/>
+            <output expression="Date" newline="True"/>
+            <output expression="Schedule" newline="True"/>
+            <output expression="CorrectionParams" newline="True"/>
+            <comment text="Finch&#232; non spengo Arduino"/>
+            <while expression="!off">
+                <if expression="&quot;InterruptOrario/Bottone&quot;">
+                    <then>
+                        <comment text="Se &#232; l'ora di un Ciclo di Controllo o l'Utente preme il PushButton viene avviato un ciclo di controllo"/>
+                        <call expression="CicloDiControllo"/>
+                        <comment text="Verifica la temperatura ambiente tramite DHT22 Sensor"/>
+                        <input variable="Temperature"/>
+                        <comment text="Verifico l'umidit&#224; del terreno tramite Slide Potentiometer"/>
+                        <input variable="HumidityLevels"/>
+                        <comment text="Confronto i valori inseriti dall'utente e i valori rilevati dai sensori al momento del Ciclo di Controllo"/>
+                        <while expression="IrrigazioneNecessaria">
+                            <comment text="Se e fin quando &#232; necessaria l'Irrigazione attivo il Relay per comando elettrovalvola di Irrigazione"/>
+                            <call expression="RelayON"/>
+                            <call expression="Irrigazione"/>
+                        </while>
+                    </then>
+                    <else>
+                        <comment text="Il programma si pone in stato di PowerDown e aspetta che l'utente prema il PushButton o l'orario di avvio di un ciclo di controllo "/>
+                    </else>
+                </if>
+                <call expression="PowerDown"/>
+            </while>
+        </body>
+    </function>
+</flowgorithm>
