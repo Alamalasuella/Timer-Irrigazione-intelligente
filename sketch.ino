@@ -158,7 +158,7 @@ ISR(TIMER1_COMPA_vect) {
 }
 
 
-// Funzione per gestire la pressione del PushButton
+// Gestiamo la pressione del PushButton
 ISR(PCINT2_vect){
   if (readDigitalPin(PD6) == false && counterSecond > 0) {
     Serial.println("Pulsante premuto!");
