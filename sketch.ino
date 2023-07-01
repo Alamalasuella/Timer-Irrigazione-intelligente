@@ -139,7 +139,7 @@ void readPotentiometer(uint8_t pin) {
 }
 
 
-// Funzione per richiamare l'Interrupt per il TIMER1 sulla comparazione con OCR1A
+// Richiamiamo l'Interrupt per il TIMER1 sulla comparazione con OCR1A
 ISR(TIMER1_COMPA_vect) {
   if (--irrigationTimes[pos] == 0) {
     irrigationTimes[pos] = iTimes[pos];
