@@ -167,6 +167,7 @@ ISR(PCINT2_vect){
   }
 }
 
+// Funzione per gestire la comunicazione Seriale
 void SerialSetUp(){
   Serial.println("Programma una Schedule Orari di Controllo :");
   Serial.println("(Inserire un numero > 24 per terminare)");
