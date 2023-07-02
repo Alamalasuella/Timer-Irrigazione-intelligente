@@ -98,9 +98,9 @@ void readDHT22(uint8_t pin) {
   // Segnale di avvio
   setPinMode(BIT_DHT22, OUTPUT);
   setDigitalLevel(BIT_DHT22, LOW);
-  delayMicroseconds(1000);
+  _delay_us(1000);
   setDigitalLevel(BIT_DHT22, HIGH);
-  delayMicroseconds(40);
+  _delay_us(40);
   // Segnale di risposta
   setPinMode(BIT_DHT22, INPUT);
   while (readDigitalPin(BIT_DHT22));
@@ -111,7 +111,7 @@ void readDHT22(uint8_t pin) {
   for (uint8_t i = 0; i < 5; i++) {
     for (uint8_t j = 0; j < 8; j++) {
       while (!readDigitalPin(BIT_DHT22));
-      delayMicroseconds(50);
+      _delay_us(50);
       data[i] = (data[i] << 1);
       if (readDigitalPin(BIT_DHT22))
         data[i] |= 0x01;
